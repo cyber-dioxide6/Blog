@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title_block %}{{ article.title }} {% endblock %}</title>
+    {% block content %}
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Full-screen layout with tech background */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2b2e4a, #e84545); /* Tech-themed gradient */
+            color: white;
+        }
+
+        .full-screen-article {
+            height: 100vh; /* Full screen height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .article-box {
+            background-color: rgba(255, 255, 255, 0.9); /* White background with transparency */
+            color: #333; /* Dark text for readability */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .article-image {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: #2b2e4a; /* Tech dark blue */
+        }
+
+        .article-meta {
+            font-size: 1rem;
+            color: #6c757d; /* Muted gray for date */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        /* Mobile and responsive styling */
+        @media (max-width: 768px) {
+            .article-box {
+                padding: 20px;
+            }
+
+            .article-title {
+                font-size: 2rem;
+            }
+
+            .article-content {
+                font-size: 1rem;
+            }
+
+            .article-meta {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Gradient tech background overlay */
+        .tech-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay for readability */
+            z-index: -1;
+        }
+
+        /* Ensure scroll if content overflows */
+        .article-box {
+            max-height: 85vh;
+        }
+        /* Hover effect for the Go Back button */
+        .back-button:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+        /* Icon (←) inside the Go Back button */
+        .back-button::before {
+            content: "← ";
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tech-overlay"></div> <!-- Tech-inspired overlay -->
+
+    <!-- Full-screen article layout -->
+    <div class="full-screen-article">
+        <div class="article-box">
+            <!-- Article Image Section -->
+            {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.title }}" class="img-fluid article-image">
+            {% endif %}
+            
+            <!-- Article Title -->
+            <h1 class="article-title">{{ article.title }}</h1>
+
+            <!-- Date Uploaded -->
+            <p class="article-meta">Uploaded on {{ article.date_added|date:"F j, Y" }}</p>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <p>{{ article.post }}</p>
+            </div>
+            <a href="javascript:history.back()" class="back-button">Go Back</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS & Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Go Back-->
+    <style>
+        /* Basic styling for the button */
+        .back-button {
+            display: inline-block;
+            background-color: #007bff; /* Blue color */
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover effect */
+        .back-button:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+        /* Optional: Add a little icon (arrow) inside the button */
+        .back-button::before {
+            content: "← ";
+            font-weight: bold;
+        }
+    </style>
+    {% endblock %}
+</body>
+</html>

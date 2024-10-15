@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block content %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title_block %}Articles{% endblock %}</title>
+  <style>
+    /* General Body Styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0a0f2c; /* Techy dark background */
+      color: #e9ecef; /* Light text color */
+    }
+
+    /* Article Section Styling */
+    .article-section {
+      padding: 60px 20px;
+      background-color: #1a1f3b; /* Dark techy background */
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 articles in a row */
+      gap: 30px;
+    }
+
+    .article-container {
+      background-color: #101530; /* Slightly lighter techy background */
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .article-container:hover {
+      transform: translateY(-10px); /* Hover effect */
+    }
+
+    .article-image img {
+      width: 100%;
+      height: auto;
+      border-bottom: 4px solid #4a90e2; /* Techy blue border */
+    }
+
+    .article-content {
+      padding: 20px;
+    }
+
+    .article-title {
+      font-size: 1.5rem;
+      color: #61dafb; /* Light blue techy color */
+      margin-bottom: 10px;
+    }
+
+    .article-date {
+      font-size: 0.9rem;
+      color: #adb5bd;
+      margin-bottom: 15px;
+    }
+
+    .article-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #ced4da;
+    }
+
+    .read-more-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #4a90e2;
+      color: #fff;
+      padding: 12px 24px;
+      font-size: 14px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .read-more-btn:hover {
+      background-color: #357ab8; /* Darker blue hover effect */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .article-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 articles per row for tablets */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .article-grid {
+        grid-template-columns: 1fr; /* 1 article per row for mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Article Section -->
+  <section class="article-section">
+    <h2 style="text-align: center; color: #61dafb; font-size: 2.5rem; margin-bottom: 40px;">
+        Latest Tech Insights & Innovations
+      </h2>
+    <div class="article-grid">
+      
+      <!-- Article 1 -->
+       {% for blog in dis %}
+      <div class="article-container">
+        <div class="article-image">
+          <img src="{{blog.image.url}}" alt="Tech Article 1">
+        </div>
+        <div class="article-content">
+          <h2 class="article-title">{{blog.title|truncatewords:10}}</h2>
+          <p class="article-date">Published on {{blog.date_added}}</p>
+          <p class="article-text"> {{blog.post|truncatewords:20}}</p>
+          <a href="{% url 'article_detail' blog.pk %}" class="read-more-btn">Read More</a>
+        </div>
+      </div>      
+      {% endfor %}
+    </div>
+  </section>
+  {% endblock %}
+</body>
+</html>

@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css.map' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css.map' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title> {% block title_block %} Home {% endblock %} </title>
+</head>
+<body>
+    {% block content %}
+    
+        <!--Hero Section-->
+        <style>
+          /* Hero Section Styling */
+          .hero-section {
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background-size: cover;
+            position: relative;
+          }
+      
+          .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+          }
+      
+          .hero-content {
+            position: relative;
+            z-index: 1;
+          }
+      
+          .hero-section h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+          }
+      
+          .hero-section p {
+            font-size: 1.5rem;
+            color: white;
+          }
+      
+          .hero-section .btn-primary {
+            background-color: #ff5722;
+            border: none;
+          }
+      
+          .hero-section .btn-primary:hover {
+            background-color: #e64a19;
+          }
+        </style>
+
+        <section class="hero-section d-flex align-items-center justify-content-center text-center">
+          <div class="container hero-content">
+            <h1 class="display-4">Welcome to TechPulse</h1>
+            <p class="lead">Your Daily Dose of Future Tech, Reviews, and Insights!</p>
+            <a href="articles" class="btn btn-primary btn-lg">Explore Latest Posts</a>
+          </div>
+        </section>
+
+
+  <style>
+    /* Custom Styles */
+    .carousel-item {
+      height: 100vh;
+      min-height: 500px;
+      background-size: cover;
+      background-position: center center;
+      position: relative;
+    }
+
+    .carousel-item img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    .carousel-caption {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 50%; /* Makes text occupy half screen in desktop */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text */
+      color: #fff;
+      padding: 20px;
+      text-align: left;
+    }
+
+    .carousel-caption h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .carousel-caption p {
+      font-size: 1.2rem;
+      margin-top: 20px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .carousel-caption {
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .carousel-caption h1 {
+        font-size: 2rem;
+      }
+
+      .carousel-caption p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .carousel-caption {
+        text-align: center;
+        padding: 10px;
+      }
+    }
+  </style>
+
+  <style>
+    /* Custom Styles */
+    .recent-articles {
+      background-color: #0a0f2c; /* Dark background for the hero section */
+      padding: 60px 0;
+      color: #e9ecef;
+    }
+
+    .article-card {
+      background-color: #1a1f3b;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .article-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .article-image img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .article-content {
+      padding: 20px;
+    }
+
+    .article-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #61dafb;
+    }
+
+    .article-date {
+      font-size: 0.9rem;
+      color: #adb5bd;
+      margin-bottom: 10px;
+    }
+
+    .article-desc {
+      font-size: 1rem;
+      color: #ced4da;
+    }
+
+    .read-more-btn {
+      background-color: #4a90e2;
+      color: #fff;
+      padding: 10px 15px;
+      font-size: 14px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .read-more-btn:hover {
+      background-color: #357ab8;
+    }
+  </style>
+
+  <!-- Recent Articles Section -->
+  <section class="recent-articles">
+    <div class="container">
+      <h2 class="text-center mb-5">Recent Articles</h2>
+      <div class="row">
+        <!-- Article 1 -->
+         {% for rec in rec %}
+        <div class="col-md-4">
+          <div class="article-card">
+            <div class="article-image">
+              <img src="{{rec.image.url}}" alt="Article 1 Image">
+            </div>
+            <div class="article-content">
+              <h3 class="article-title">{{rec.title| truncatewords:10 }}</h3>
+              <p class="article-date">Published on: {{rec.date_added}}</p>
+              <p class="article-desc">{{rec.post|truncatewords:20}}</p>
+              <a href="{% url 'article_detail' rec.pk %}" class="read-more-btn">Read More</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Reviews-->
+   
+  <section class="recent-articles">
+    <div class="container">
+      <h2 class="text-center mb-5">Recent Reviews</h2>
+      <div class="row">
+        <!-- Reviews -->
+         {% for recrev in recrev %}
+        <div class="col-md-4">
+          <div class="article-card">
+            <div class="article-content">
+              <h3 class="article-title">{{recrev.name}}</h3>
+              <p class="article-date">Published on: {{recrev.date}}</p>
+              <p class="article-desc">{{recrev.feedback}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}
+</body>
+</html>

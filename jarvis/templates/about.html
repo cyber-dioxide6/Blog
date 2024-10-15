@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css.map' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css.map' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <title>{% block title_block %}About Us{% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+<!-- About Us Section with Background Image, Overlay, and Text Decorations -->
+<section id="about-us" class="py-5 text-white" style="position: relative; overflow: hidden;">
+    <!-- Background Image -->
+    <div style="background: url({% static '/images/bg.jpg' %}) no-repeat center center; background-size: cover; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1;"></div>
+    
+    <!-- Dark Overlay -->
+    <div style="background: rgba(0, 0, 0, 0.7); position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2;"></div>
+    
+    <!-- Content -->
+    <div class="container" style="position: relative; z-index: 3;">
+      <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+          <!-- Main Heading with Shadow and Decoration -->
+          <h2 class="display-4 font-weight-bold mb-4 animate__animated animate__fadeInDown" style="font-family: 'Poppins', sans-serif; text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); letter-spacing: 2px;">
+            About Us
+          </h2>
+          <!-- Intro Paragraph with Subtle Shadow and Styling -->
+          <p class="lead mb-5 animate__animated animate__fadeIn animate__delay-1s" style="font-size: 1.2rem; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);">
+            Welcome to <span style="font-weight: bold; color: #ffcc00; text-decoration: underline;">TechPulse</span> — your heartbeat in the fast-paced world of technology! We are a dedicated platform bringing you the latest trends, insights, and breakthroughs in the tech industry.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Mission and What We Offer Sections with Text Shadows -->
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="font-weight-bold animate__animated animate__fadeInLeft animate__delay-1s" style="font-size: 1.5rem; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);">
+            Our Mission
+          </h4>
+          <p class="animate__animated animate__fadeInLeft animate__delay-1s" style="font-size: 1.1rem; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);">
+            At <span style="font-weight: bold; color: #ffcc00;">TechPulse</span>, we cover everything from cutting-edge innovations in AI and machine learning to the latest gadgets, mobile tech, and industry trends that shape the future. Our mission is to provide engaging, insightful, and thought-provoking content that makes complex technology accessible to everyone.
+          </p>
+        </div>
+        <div class="col-md-6">
+          <h4 class="font-weight-bold animate__animated animate__fadeInRight animate__delay-2s" style="font-size: 1.5rem; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);">
+            What We Offer
+          </h4>
+          <ul class="list-unstyled animate__animated animate__fadeInRight animate__delay-2s" style="font-size: 1.1rem; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);">
+            <li class="mb-2">📱 <strong>In-depth reviews</strong>: Honest and detailed reviews of the latest devices, gadgets, and software.</li>
+            <li class="mb-2">💡 <strong>Future trends</strong>: Analyzing the tech trends that are reshaping industries and everyday life.</li>
+            <li class="mb-2">🔍 <strong>Expert insights</strong>: Exploring AI, blockchain, cybersecurity, and other emerging technologies.</li>
+            <li class="mb-2">🛠️ <strong>Tech tutorials</strong>: Helping both beginners and experts with easy-to-follow guides and how-tos.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Conclusion Paragraph -->
+      <div class="row mt-4">
+        <div class="col-md-12 text-center">
+          <p class="lead animate__animated animate__fadeInUp animate__delay-3s" style="font-size: 1.2rem; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);">
+            Stay connected with <span style="font-weight: bold; color: #ffcc00;">TechPulse</span> and keep your finger on the pulse of technology!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    #about-us h2, #about-us h4 {
+      text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7); /* Stronger shadow for better readability */
+    }
+    
+    #about-us p, #about-us ul li {
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for paragraph text */
+    }
+  
+    /* Add color to key terms like TechPulse */
+    #about-us span {
+      color: #ffcc00; /* Highlight key text in yellow-gold */
+    }
+  
+    #about-us ul li {
+      font-size: 1.1rem;
+    }
+  </style>
+  
+  {% endblock %}
+</body>
+</html>
