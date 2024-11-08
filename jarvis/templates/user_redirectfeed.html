@@ -1,11 +1,21 @@
-{% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+{% block content %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Submitted</title>
-    <style>
+    <title>{% block title_block %}Feedback Submitted{% endblock %}</title>
+</head>
+<body>
+    <div class="confirmation-container">
+        <div class="emoji">🎉</div>
+        <div class="checkmark"></div>
+        <div class="message">Feedback Submitted Successfully!</div>
+        <div class="description">Thank you for your valuable feedback. We appreciate your input.</div>
+        <a href="review" class="btn-home">Go Back</a>
+    </div>
+<style>
         body {
             font-family: 'Arial', sans-serif;
             display: flex;
@@ -76,14 +86,6 @@
             background-color: #45a049;
         }
     </style>
-</head>
-<body>
-    <div class="confirmation-container">
-        <div class="emoji">🎉</div>
-        <div class="checkmark"></div>
-        <div class="message">Feedback Submitted Successfully!</div>
-        <div class="description">Thank you for your valuable feedback. We appreciate your input.</div>
-        <a href="review" class="btn-home">Go Back</a>
-    </div>
+	{% endblock %}
 </body>
 </html>
