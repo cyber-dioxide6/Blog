@@ -80,11 +80,11 @@ WSGI_APPLICATION = 'jarvis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'files',
-        'USER': 'siddiqui',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': 'defaultdb',
+        'USER': 'avnadmin',
+        'PASSWORD': 'AVNS_kC--ny221yNqKLynBcL',
+        'HOST': 'shzian-timypet0235-963c.b.aivencloud.com',
+        'PORT': '21817',
     }
 }
 
