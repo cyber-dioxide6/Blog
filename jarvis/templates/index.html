@@ -214,7 +214,7 @@
             <div class="article-content">
               <h3 class="article-title">{{rec.title| truncatewords:10 }}</h3>
               <p class="article-date">Published on: {{rec.date_added}}</p>
-              <p class="article-desc">{{rec.post|truncatewords:20}}</p>
+              <p class="article-desc">{{rec.post|truncatewords:20 | safe}}</p>
               <a href="{% url 'article_detail' rec.pk %}" class="read-more-btn">Read More</a>
             </div>
           </div>

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -131,8 +132,18 @@ STATICFILES_DIRS = [STATIC_DIR]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+#Media Files Storage
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 CSRF_TRUSTED_ORIGINS = ["https://sizan.sliplane.app"]
+
+# Tinymce Editor Modification
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'silver',
+    'width': '600',
+    'height': '400',
+    'plugins': 'advlist autolink list links image charmap print preview anchor',
+    'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alingright | outdent indent | link image',
+}

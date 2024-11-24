@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce.models import HTMLField
 from django.utils import timezone
 # Create your models here.
 
@@ -8,12 +9,12 @@ class blog(models.Model):
     Post_type = [
         ('TECH', 'TECHNOLOGY'),
         ('AI', 'ARTIFICIAL INTELLIGENCE'),
-        ('ML', 'MACHINE LEARNING'),
-        ('IOT', 'INTERNET OF THINGS'),
+        ('CODE', 'CODING'),
+        ('MS', 'MICROSOFT'),
         ('AUTO', 'AUTOMATIONS'),
     ]
     title = models.CharField(max_length=100)
-    post = models.TextField(max_length=1000)
+    post = HTMLField(default='')
     image = models.ImageField(upload_to= 'media')
     cate = models.CharField(max_length=5, choices=Post_type, null=True)
     date_added = models.DateTimeField(default=timezone.now)
