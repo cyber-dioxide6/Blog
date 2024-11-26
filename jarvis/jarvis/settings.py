@@ -14,6 +14,9 @@ from pathlib import Path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'tinymce',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -132,10 +136,6 @@ STATICFILES_DIRS = [STATIC_DIR]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Media Files Storage
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-
 CSRF_TRUSTED_ORIGINS = ["https://sizan.sliplane.app"]
 
 # Tinymce Editor Modification
@@ -147,3 +147,14 @@ TINYMCE_DEFAULT_CONFIG = {
     'plugins': 'advlist autolink list links image charmap print preview anchor',
     'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alingright | outdent indent | link image',
 }
+
+# Cloudinary settings
+cloudinary.config(
+
+    cloud_name = 'de6szjcq7',
+    api_key = '826339717584138',
+    api_secret = 'uPn6Sv2PWQ5WlDCBbi86BMHYGo8',
+)
+
+#MEDIA_URL = '/media/'  # or any prefix you choose
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

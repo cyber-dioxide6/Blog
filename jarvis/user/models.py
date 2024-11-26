@@ -1,6 +1,7 @@
 from django.db import models
 from tinymce.models import HTMLField
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 
@@ -15,7 +16,7 @@ class blog(models.Model):
     ]
     title = models.CharField(max_length=100)
     post = HTMLField(default='')
-    image = models.ImageField(upload_to= 'media')
+    image = CloudinaryField('media/image')
     cate = models.CharField(max_length=5, choices=Post_type, null=True)
     date_added = models.DateTimeField(default=timezone.now)
     def __str__(self):
