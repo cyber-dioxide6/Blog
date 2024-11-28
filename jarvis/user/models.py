@@ -9,10 +9,14 @@ from cloudinary.models import CloudinaryField
 class blog(models.Model):
     Post_type = [
         ('TECH', 'TECHNOLOGY'),
-        ('AI', 'ARTIFICIAL INTELLIGENCE'),
+        ('HTML', 'HTML'),
         ('CODE', 'CODING'),
-        ('MS', 'MICROSOFT'),
-        ('AUTO', 'AUTOMATIONS'),
+        ('CSS', 'CSS'),
+        ('BTS', 'BOOTSTRAP'),
+        ('PYT', 'PYTHON'),
+        ('JAVA', 'JAVA'),
+        ('JS', 'JAVASCRIPT'),
+        ('DJF', 'DJANGO FRAMEWORK'),
     ]
     title = models.CharField(max_length=100)
     post = HTMLField(default='')

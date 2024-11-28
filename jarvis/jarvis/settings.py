@@ -92,7 +92,12 @@ DATABASES = {
         'PORT': '21817',
     }
 }
-
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': BASE_DIR / 'db.sqlite3',
+    #}
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -135,8 +140,8 @@ STATICFILES_DIRS = [STATIC_DIR]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CSRF_TRUSTED_ORIGINS = ["https://sizan.sliplane.app"]
+# CSRF Validation
+CSRF_TRUSTED_ORIGINS = ["https://techpulse.sliplane.app"]
 
 # Tinymce Editor Modification
 

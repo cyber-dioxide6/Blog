@@ -1,14 +1,7 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TK5VJDRBD4"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-TK5VJDRBD4');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title_block %}{{ article.title }} {% endblock %}</title>
@@ -16,165 +9,143 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Full-screen layout with tech background */
+        /* Full-screen tech-styled background */
         body, html {
             height: 100%;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #2b2e4a, #e84545); /* Tech-themed gradient */
-            color: white;
+            background: radial-gradient(circle, #1d1f27, #131419); /* Subtle tech gradient */
+            color: #d9d9d9; /* Soft light gray for text */
+            font-family: 'Arial', sans-serif;
         }
-
+    
         .full-screen-article {
-            height: 100vh; /* Full screen height */
+            padding: 20px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            min-height: 100vh;
+            text-align: left;
         }
-
-        .article-box {
-            background-color: rgba(255, 255, 255, 0.9); /* White background with transparency */
-            color: #333; /* Dark text for readability */
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 900px;
-            width: 100%;
-            overflow-y: auto;
+    
+        /* Article Title Styling */
+        .article-title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #4acfac; /* Tech green */
+            margin-bottom: 20px;
+            text-align: center; /* Center the title */
         }
-
+    
+        /* Article Image Styling */
         .article-image {
             width: 100%;
-            max-height: 350px;
+            max-width: 800px;
+            max-height: 400px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
-
-        .article-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            color: #2b2e4a; /* Tech dark blue */
-        }
-
+    
+        /* Article Meta (Date) Styling */
         .article-meta {
             font-size: 1rem;
-            color: #6c757d; /* Muted gray for date */
+            color: #aaaaaa; /* Light gray for meta text */
+            margin-bottom: 20px;
             text-align: center;
+        }
+    
+        /* Article Content Styling */
+        .article-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            color: #e6e6e6; /* Softer white for better readability */
+            text-align: justify; /* Justify text for cleaner layout */
+            margin-bottom: 20px;
+            word-wrap: break-word; /* Prevent overflow issues */
+        }
+    
+        /* Adjusting images within the TinyMCE content */
+        .article-content img {
+            max-width: 100%; /* Ensure images are responsive */
+            height: auto;
+            display: block;
+            margin: 20px auto; /* Center images */
+            border-radius: 10px; /* Optional: rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for images */
+        }
+    
+        /* Back Button Styling */
+        .back-button {
+            display: inline-block;
+            background-color: #4acfac; /* Tech green */
+            color: #1d1f27; /* Dark text on button */
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
             margin-bottom: 20px;
         }
-
-        .article-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #333;
+    
+        .back-button:hover {
+            background-color: #3aa599; /* Darker green */
+            color: white;
         }
-
-        /* Mobile and responsive styling */
+    
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .article-box {
-                padding: 20px;
-            }
-
             .article-title {
                 font-size: 2rem;
             }
-
+    
             .article-content {
                 font-size: 1rem;
             }
-
-            .article-meta {
-                font-size: 0.9rem;
+        }
+    
+        @media (max-width: 576px) {
+            .article-content {
+                padding: 5px; /* Reduce padding for very small devices */
+            }
+    
+            .article-content img {
+                margin: 10px 0; /* Further adjust margins for small screens */
             }
         }
-
-        /* Gradient tech background overlay */
-        .tech-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Dark overlay for readability */
-            z-index: -1;
-        }
-
-        /* Ensure scroll if content overflows */
-        .article-box {
-            max-height: 85vh;
-        }
-        /* Hover effect for the Go Back button */
-        .back-button:hover {
-            background-color: #0056b3; /* Darker blue */
-        }
-
-        /* Icon (←) inside the Go Back button */
-        .back-button::before {
-            content: "← ";
-            font-weight: bold;
-        }
     </style>
+    
 </head>
 <body>
 
-    <div class="tech-overlay"></div> <!-- Tech-inspired overlay -->
-
-    <!-- Full-screen article layout -->
+    <!-- Full-screen Article Section -->
     <div class="full-screen-article">
-        <div class="article-box">
-            <!-- Article Image Section -->
-            {% if article.image %}
-            <img src="{{ article.image.url }}" alt="{{ article.title }}" class="img-fluid article-image">
-            {% endif %}
-            
-            <!-- Article Title -->
-            <h1 class="article-title">{{ article.title }}</h1>
-
-            <!-- Date Uploaded -->
-            <p class="article-meta">Uploaded on {{ article.date_added|date:"F j, Y" }}</p>
-
-            <!-- Article Content -->
-            <div class="article-content">
-                <p>{{ article.post | safe }}</p>
-            </div>
-            <a href="javascript:history.back()" class="back-button">Go Back</a>
+        <!-- Go Back Button -->
+        <a href="javascript:history.back()" class="back-button">← Go Back</a>
+    
+        <!-- Article Title -->
+        <h1 class="article-title">{{ article.title }}</h1>
+    
+        <!-- Article Image -->
+        {% if article.image %}
+        <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
+        {% endif %}
+    
+        <!-- Date Updated -->
+        <p class="article-meta">Updated on {{ article.date_added|date:"F j, Y" }}</p>
+    
+        <!-- Article Content -->
+        <div class="article-content">
+            {{ article.post|safe }}
         </div>
     </div>
 
-    <!-- Bootstrap JS & Dependencies -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Go Back-->
-    <style>
-        /* Basic styling for the button */
-        .back-button {
-            display: inline-block;
-            background-color: #007bff; /* Blue color */
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 16px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        /* Hover effect */
-        .back-button:hover {
-            background-color: #0056b3; /* Darker blue */
-        }
-
-        /* Optional: Add a little icon (arrow) inside the button */
-        .back-button::before {
-            content: "← ";
-            font-weight: bold;
-        }
-    </style>
     {% endblock %}
 </body>
 </html>
