@@ -57,4 +57,5 @@ def articles(request):
 # Read More Section
 def article_detail(request, blog_id):
     article = get_object_or_404(blog, pk=blog_id)
-    return render(request, 'articles_details.html', {'article': article})
+    related_articles = blog.objects.filter(category=article.category).exclude(pk=article.pk)
+    return render(request, 'articles_details.html', {'article': article, 'related_articles': related_articles})

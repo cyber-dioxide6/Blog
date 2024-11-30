@@ -21,7 +21,7 @@ class blog(models.Model):
     title = models.CharField(max_length=100)
     post = HTMLField(default='')
     image = CloudinaryField('media/image')
-    cate = models.CharField(max_length=5, choices=Post_type, null=True)
+    category = models.CharField(max_length=5, choices=Post_type, null=True)
     date_added = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.title
