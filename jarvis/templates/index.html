@@ -25,236 +25,311 @@
 <body>
     {% block content %}
     
-        <!--Hero Section-->
-        <style>
-          /* Hero Section Styling */
-          .hero-section {
-            height: 100vh;
-            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
-            background-size: cover;
-            position: relative;
-          }
-      
-          .hero-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6); /* Dark overlay */
-          }
-      
-          .hero-content {
-            position: relative;
-            z-index: 1;
-          }
-      
-          .hero-section h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            color: white;
-          }
-      
-          .hero-section p {
-            font-size: 1.5rem;
-            color: white;
-          }
-      
-          .hero-section .btn-primary {
-            background-color: #ff5722;
-            border: none;
-          }
-      
-          .hero-section .btn-primary:hover {
-            background-color: #e64a19;
-          }
-        </style>
-
-        <section class="hero-section d-flex align-items-center justify-content-center text-center">
-          <div class="container hero-content">
-            <h1 class="display-4">Welcome to TechPulse</h1>
-            <p class="lead">Your Daily Dose of Future Tech, Reviews, and Insights!</p>
-            <a href="articles" class="btn btn-primary btn-lg">Explore Latest Posts</a>
-          </div>
-        </section>
-
-
-  <style>
-    /* Custom Styles */
-    .carousel-item {
-      height: 100vh;
-      min-height: 500px;
-      background-size: cover;
-      background-position: center center;
-      position: relative;
-    }
-
-    .carousel-item img {
-      object-fit: cover;
-      height: 100%;
-      width: 100%;
-    }
-
-    .carousel-caption {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 50%; /* Makes text occupy half screen in desktop */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text */
-      color: #fff;
-      padding: 20px;
-      text-align: left;
-    }
-
-    .carousel-caption h1 {
-      font-size: 3rem;
-      font-weight: bold;
-    }
-
-    .carousel-caption p {
-      font-size: 1.2rem;
-      margin-top: 20px;
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .carousel-caption {
-        right: 0;
-        background: rgba(0, 0, 0, 0.7);
+    <style>
+      /* General Body Styling */
+      body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #0a0f2c; /* Techy dark background */
+        color: #e9ecef; /* Light text color */
       }
-
-      .carousel-caption h1 {
-        font-size: 2rem;
+  
+      /* Article Section Styling */
+      .article-section {
+        padding: 60px 20px;
+        background: radial-gradient(circle, #1d1f27, #131419);
       }
-
-      .carousel-caption p {
+  
+      .article-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 articles in a row */
+        gap: 30px;
+      }
+  
+      .article-container {
+        background-color: #101530; /* Slightly lighter techy background */
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      }
+  
+      .article-container:hover {
+        transform: translateY(-10px); /* Hover effect */
+      }
+  
+      .article-image img {
+        width: 100%;
+        height: auto;
+        border-bottom: 4px solid #4a90e2; /* Techy blue border */
+      }
+  
+      .article-content {
+        padding: 20px;
+      }
+  
+      .article-title {
+        font-size: 1.5rem;
+        color: #61dafb; /* Light blue techy color */
+        margin-bottom: 10px;
+      }
+  
+      .article-date {
+        font-size: 0.9rem;
+        color: #adb5bd;
+        margin-bottom: 15px;
+      }
+  
+      .article-text {
         font-size: 1rem;
+        line-height: 1.6;
+        color: #ced4da;
       }
-    }
-
-    @media (max-width: 576px) {
-      .carousel-caption {
-        text-align: center;
-        padding: 10px;
+  
+      .read-more-btn {
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #4a90e2;
+        color: #fff;
+        padding: 12px 24px;
+        font-size: 14px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
       }
-    }
-  </style>
+  
+      .read-more-btn:hover {
+        background-color: #357ab8; /* Darker blue hover effect */
+      }
+  
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .article-grid {
+          grid-template-columns: repeat(2, 1fr); /* 2 articles per row for tablets */
+        }
+      }
+  
+      @media (max-width: 768px) {
+        .article-grid {
+          grid-template-columns: 1fr; /* 1 article per row for mobile */
+        }
+      }
 
-  <style>
-    /* Custom Styles */
-    .recent-articles {
-      background-color: #0a0f2c; /* Dark background for the hero section */
+
+      /* Review CSS */
+
+      .review-section {
+        background: radial-gradient(circle, #1d1f27, #131419);
+        /*background-image: linear-gradient(135deg, #0a0f2c 0%, #112d46 100%); */
+        padding: 50px 0;
+        color: #e9ecef; /* Techy light text */
+      }
+  
+      .review-card {
+        border: none;
+        background-color: #1a1f3b;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        margin-bottom: 30px;
+      }
+
+      .reviewer-name {
+        font-weight: bold;
+        font-size: 20px;
+        color: #61dafb;
+      }
+  
+      .review-date {
+        font-size: 14px;
+        color: #adb5bd;
+      }
+
+      .review-content {
+        font-size: 16px;
+        color: #ced4da;
+        margin-top: 15px;
+      }
+
+      /* HEro Section CSS */
+
+      /* Hero Section Background */
+.hero {
+  background: radial-gradient(circle, #1d1f27, #131419);
+  color: white;
+  position: relative;
+  padding: 100px 0;
+  z-index: 1;
+}
+
+/* Tech Icons Styling */
+.tech-icons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.tech-icons i {
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.tech-icons i:hover {
+  transform: scale(1.1);
+}
+
+/* Hero Heading and Subheading */
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  animation: fadeIn 2s ease-out;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
+  animation: fadeIn 2s ease-out;
+}
+
+/* Buttons Styling */
+.hero .btn {
+  font-size: 1.2rem;
+  padding: 15px 30px;
+  margin: 10px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.hero .btn-light {
+  background-color: #00ccff;
+  border: none;
+}
+
+.hero .btn-light:hover {
+  background-color: #0099cc;
+}
+
+.hero .btn-outline-light {
+  border: 2px solid #00ccff;
+  color: #fff;
+}
+
+.hero .btn-outline-light:hover {
+  background-color: #00ccff;
+  color: #fff;
+}
+
+/* Animation for Elements */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateY(30px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Ensure responsiveness */
+@media (max-width: 768px) {
+  .hero {
       padding: 60px 0;
-      color: #e9ecef;
-    }
+  }
 
-    .article-card {
-      background-color: #1a1f3b;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-      transition: transform 0.3s;
-    }
+  .hero h1 {
+      font-size: 2.5rem;
+  }
 
-    .article-card:hover {
-      transform: translateY(-10px);
-    }
+  .tech-icons {
+      flex-direction: column;
+      align-items: center;
+  }
+}
 
-    .article-image img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
 
-    .article-content {
-      padding: 20px;
-    }
 
-    .article-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #61dafb;
-    }
+    </style>
 
-    .article-date {
-      font-size: 0.9rem;
-      color: #adb5bd;
-      margin-bottom: 10px;
-    }
+    <!--Hero Section -->
 
-    .article-desc {
-      font-size: 1rem;
-      color: #ced4da;
-    }
-
-    .read-more-btn {
-      background-color: #4a90e2;
-      color: #fff;
-      padding: 10px 15px;
-      font-size: 14px;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .read-more-btn:hover {
-      background-color: #357ab8;
-    }
-  </style>
-
-  <!-- Recent Articles Section -->
-  <section class="recent-articles">
-    <div class="container">
-      <h2 class="text-center mb-5">Recent Articles</h2>
-      <div class="row">
-        <!-- Article 1 -->
-         {% for rec in rec %}
-        <div class="col-md-4">
-          <div class="article-card">
-            <div class="article-image">
-              <img src="{{rec.image.url}}" alt="Article 1 Image">
-            </div>
-            <div class="article-content">
-              <h3 class="article-title">{{rec.title| truncatewords:10 }}</h3>
-              <p class="article-date">Published on: {{rec.date_added}}</p>
-              <p class="article-desc">{{rec.post|truncatewords:20 | safe}}</p>
-              <a href="{% url 'article_detail' rec.id %}" class="read-more-btn">Read More</a>
-            </div>
+    <section class="hero text-white text-center py-5">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-6">
+                  <h1 class="display-4 mb-4 animate__animated animate__fadeIn">Master Programming Languages</h1>
+                  <p class="lead mb-4 animate__animated animate__fadeIn animate__delay-1s">Interactive tutorials to help you master the latest programming languages like Python, JavaScript, and more.</p>
+                  
+                  <!-- Action Buttons -->
+                  <a href="{% url 'articles' %}" class="btn btn-light btn-lg animate__animated animate__fadeIn animate__delay-2s">Start Learning</a>
+                  <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg animate__animated animate__fadeIn animate__delay-3s">About Us</a>
+              </div>
+              <div class="col-md-6">
+                  <div class="tech-icons">
+                      <i class="fab fa-python fa-3x"></i>
+                      <i class="fab fa-js-square fa-3x"></i>
+                      <i class="fab fa-java fa-3x"></i>
+                      <i class="fab fa-html5 fa-3x"></i>
+                  </div>
+              </div>
           </div>
-        </div>
-        {% endfor %}
-
       </div>
+  </section>
+  
+
+
+  <!-- Article Section -->
+  <section class="article-section">
+    <h2 style="text-align: center; color: white; font-size: 2.5rem; margin-bottom: 40px;">
+        Latest Articles
+      </h2>
+    <div class="article-grid">
+      
+      <!-- Article 1 -->
+      {% for rec in rec %}
+      <div class="article-container">
+        <div class="article-image">
+          <img src="{{rec.image.url}}" alt="Tech Article 1">
+        </div>
+        <div class="article-content">
+          <h2 class="article-title">{{rec.title|truncatewords:10}}</h2>
+          <p class="article-date">Published on {{rec.date_added}}</p>
+          
+          <a href="{% url 'article_detail' rec.id %}" class="read-more-btn">Read More</a>
+        </div>
+      </div>      
+      {% endfor %}
     </div>
   </section>
+
+
 
   <!-- Recent Reviews-->
-   
-  <section class="recent-articles">
+
+  <section class="review-section">
     <div class="container">
-      <h2 class="text-center mb-5">Recent Reviews</h2>
+      <h2 class="text-center mb-5">What Our Readers Are Saying</h2>
       <div class="row">
-        <!-- Reviews -->
-         {% for recrev in recrev %}
+        <!-- Review 1 -->
+        {% for recrev in recrev %}
         <div class="col-md-4">
-          <div class="article-card">
-            <div class="article-content">
-              <h3 class="article-title">{{recrev.name}}</h3>
-              <p class="article-date">Published on: {{recrev.date}}</p>
-              <p class="article-desc">{{recrev.feedback}}</p>
+          <div class="review-card">
+            <div class="d-flex justify-content-between">
+              <div>
+                <p class="reviewer-name">{{recrev.name}}</p>
+                <p class="review-date">Reviewed on {{recrev.date}}</p>
+              </div>
             </div>
+            <p class="review-content">{{recrev.feedback|truncatewords:50}}</p>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   {% endblock %}
 </body>

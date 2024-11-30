@@ -125,7 +125,6 @@
         <div class="article-content">
           <h2 class="article-title">{{blog.title|truncatewords:10}}</h2>
           <p class="article-date">Published on {{blog.date_added}}</p>
-          <p class="article-text"> {{blog.post|truncatewords:20}}</p>
           <a href="{% url 'article_detail' blog.id %}" class="read-more-btn">Read More</a>
         </div>
       </div>      

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from .models import *
 # Create your views here.
 def home(request):
-    rec = blog.objects.order_by('-date_added')[:3]
+    rec = blog.objects.order_by('-date_added')[:9]
     recrev = review.objects.order_by('-date')[:6]
     return render(request, 'index.html', {'rec': rec, 'recrev': recrev })
 
