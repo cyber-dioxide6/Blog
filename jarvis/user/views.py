@@ -55,6 +55,6 @@ def articles(request):
     return render(request,'articles.html', {'dis': dis})
 
 # Read More Section
-def article_detail(request, pk):
-    article = get_object_or_404(blog, pk=pk)
+def article_detail(request, blog_id):
+    article = get_object_or_404(blog, pk=blog_id)
     return render(request, 'articles_details.html', {'article': article})
