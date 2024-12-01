@@ -1,88 +1,77 @@
 {% extends 'base.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title_block %}{{ article.title }} {% endblock %}</title>
-    {% block content %}
-    <!-- Bootstrap CSS -->
+    <title>{{ article.title }}</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Full-screen tech-styled background */
         body, html {
             height: 100%;
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle, #1d1f27, #131419); /* Subtle tech gradient */
-            color: #d9d9d9; /* Soft light gray for text */
+            background: radial-gradient(circle, #1d1f27, #131419);
+            color: #d9d9d9;
             font-family: 'Arial', sans-serif;
         }
-    
+
         .full-screen-article {
             padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            width: 100%;
             text-align: left;
         }
-    
-        /* Article Title Styling */
+
         .article-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            color: #4acfac; /* Tech green */
+            color: #4acfac;
             margin-bottom: 20px;
-            text-align: center; /* Center the title */
+            text-align: center;
         }
-    
-        /* Article Image Styling */
+
         .article-image {
             width: 100%;
             max-width: 800px;
-            max-height: 400px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 20px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
-    
-        /* Article Meta (Date) Styling */
+
         .article-meta {
             font-size: 1rem;
-            color: #aaaaaa; /* Light gray for meta text */
+            color: #aaaaaa;
             margin-bottom: 20px;
             text-align: center;
         }
-    
-        /* Article Content Styling */
+
         .article-content {
             font-size: 1.2rem;
             line-height: 1.8;
-            max-width: 800px;
-            color: #e6e6e6; /* Softer white for better readability */
-            text-align: justify; /* Justify text for cleaner layout */
-            margin-bottom: 20px;
-            word-wrap: break-word; /* Prevent overflow issues */
+            max-width: 90%;
+            color: #e6e6e6;
+            text-align: justify;
+            margin: 0 auto 20px;
+            word-wrap: break-word;
         }
-    
-        /* Adjusting images within the TinyMCE content */
+
         .article-content img {
-            max-width: 100%; /* Ensure images are responsive */
+            max-width: 100%;
             height: auto;
             display: block;
-            margin: 20px auto; /* Center images */
-            border-radius: 10px; /* Optional: rounded corners */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for images */
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
-    
-        /* Back Button Styling */
+
         .back-button {
-            display: inline-block;
-            background-color: #4acfac; /* Tech green */
-            color: #1d1f27; /* Dark text on button */
+            background-color: #4acfac;
+            color: #1d1f27;
             padding: 10px 20px;
             border-radius: 30px;
             font-size: 1rem;
@@ -91,232 +80,122 @@
             transition: all 0.3s ease-in-out;
             margin-bottom: 20px;
         }
-    
+
         .back-button:hover {
-            background-color: #3aa599; /* Darker green */
+            background-color: #3aa599;
             color: white;
         }
-    
-        /* Responsive Design */
+
+        .related-articles {
+            padding: 20px;
+            background-color: #16171d;
+        }
+
+        .related-articles h2 {
+            color: #61dafb;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .related-articles ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .related-articles li {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #1d1f27;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+        .related-articles li img {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .related-articles li h3 {
+            font-size: 1rem;
+            color: #d9d9d9;
+            margin: 0 0 5px;
+            font-weight: bold;
+        }
+
+        .related-articles li p {
+            font-size: 0.85rem;
+            color: #adb5bd;
+            margin: 0;
+        }
+
+        .related-articles li a {
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: #61dafb;
+            font-weight: bold;
+        }
+
+        .related-articles li a:hover {
+            color: #4acfac;
+        }
+
         @media (max-width: 768px) {
             .article-title {
                 font-size: 2rem;
             }
-    
+
             .article-content {
                 font-size: 1rem;
             }
-        }
-    
-        @media (max-width: 576px) {
-            .article-content {
-                padding: 5px; /* Reduce padding for very small devices */
-            }
-    
-            .article-content img {
-                margin: 10px 0; /* Further adjust margins for small screens */
+
+            .related-articles li {
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
             }
         }
-
-
-            /* Article Section Styling */
-    .article-section {
-        padding: 60px 20px;
-        background-color: radial-gradient(circle, #1d1f27, #131419); /* Dark techy background */
-      }
-  
-      .article-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 articles in a row */
-        gap: 30px;
-      }
-  
-      .article-container {
-        background-color: #101530; /* Slightly lighter techy background */
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease;
-      }
-  
-      .article-container:hover {
-        transform: translateY(-10px); /* Hover effect */
-      }
-  
-      .article-image img {
-        width: 100%;
-        height: auto;
-        border-bottom: 4px solid #4a90e2; /* Techy blue border */
-      }
-  
-      .article-content {
-        padding: 20px;
-      }
-  
-      .article-title {
-        font-size: 1.5rem;
-        color: #61dafb; /* Light blue techy color */
-        margin-bottom: 10px;
-      }
-  
-      .article-date {
-        font-size: 0.9rem;
-        color: #adb5bd;
-        margin-bottom: 15px;
-      }
-  
-      .article-text {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #ced4da;
-      }
-  
-      .read-more-btn {
-        display: inline-block;
-        margin-top: 20px;
-        background-color: #4a90e2;
-        color: #fff;
-        padding: 12px 24px;
-        font-size: 14px;
-        border-radius: 5px;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-      }
-  
-      .read-more-btn:hover {
-        background-color: #357ab8; /* Darker blue hover effect */
-      }
-  
-      /* Responsive Design */
-      @media (max-width: 1024px) {
-        .article-grid {
-          grid-template-columns: repeat(2, 1fr); /* 2 articles per row for tablets */
-        }
-      }
-  
-      @media (max-width: 768px) {
-        .article-grid {
-          grid-template-columns: 1fr; /* 1 article per row for mobile */
-        }
-      }
-
-      /* Related Articles Section */
-.related-articles {
-  background-color: #16171d;
-  padding: 20px;
-}
-
-.related-articles h2 {
-  color: #61dafb;
-  text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-}
-
-.related-articles ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.related-articles li {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: #1d1f27;
-  border-radius: 5px;
-}
-
-.related-articles li img {
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-.related-articles li h3 {
-  font-size: 1rem;
-  color: #d9d9d9;
-  margin: 0 0 5px;
-  font-weight: bold;
-}
-
-.related-articles li p {
-  font-size: 0.85rem;
-  color: #adb5bd;
-  margin: 0;
-}
-
-.related-articles li a {
-  font-size: 0.85rem;
-  text-decoration: none;
-  color: #61dafb;
-  font-weight: bold;
-}
-
-.related-articles li a:hover {
-  color: #4acfac;
-}
-
-
-
     </style>
-    
 </head>
 <body>
-
-    <!-- Full-screen Article Section -->
     <div class="full-screen-article">
-        <!-- Go Back Button -->
         <a href="javascript:history.back()" class="back-button">← Go Back</a>
-    
-        <!-- Article Title -->
         <h1 class="article-title">{{ article.title }}</h1>
-    
-        <!-- Article Image -->
         {% if article.image %}
         <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
         {% endif %}
-    
-        <!-- Date Updated -->
         <p class="article-meta">Updated on {{ article.date_added|date:"F j, Y" }}</p>
-    
-        <!-- Article Content -->
         <div class="article-content">
             {{ article.post|safe }}
         </div>
     </div>
-
-    <section style="background-color: #16171d; padding: 20px;">
-      <h2 style="color: #61dafb; text-align: center; font-size: 1.8rem; margin-bottom: 20px;">Related Articles</h2>
-      <ul style="list-style: none; padding: 0; margin: 0;">
-          {% for related_article in related_articles %}
-          <li style="display: flex; align-items: center; padding: 10px; margin-bottom: 10px; background-color: #1d1f27; border-radius: 5px;">
-              <!-- Article Image -->
-              {% if related_article.image %}
-              <img src="{{ related_article.image.url }}" alt="{{ related_article.title }}" style="width: 60px; height: 60px; border-radius: 5px; margin-right: 10px;">
-              {% endif %}
-              
-              <!-- Article Info -->
-              <div style="flex: 1;">
-                  <h3 style="font-size: 1rem; color: #d9d9d9; margin: 0 0 5px; font-weight: bold;">
-                      {{ related_article.title|truncatewords:8 }}
-                  </h3>
-                  <p style="font-size: 0.85rem; color: #adb5bd; margin: 0;">Published on {{ related_article.date_added|date:"F j, Y" }}</p>
-              </div>
-  
-              <!-- Read More Button -->
-              <a href="{% url 'article_detail' related_article.id %}" style="font-size: 0.85rem; text-decoration: none; color: #61dafb; font-weight: bold;">
-                  Read More →
-              </a>
-          </li>
-          {% empty %}
-          <p style="color: #adb5bd; text-align: center;">No related articles available.</p>
-          {% endfor %}
-      </ul>
-  </section>
-  
-    {% endblock %}
+    <section class="related-articles">
+        <h2>Related Articles</h2>
+        <ul>
+            {% for related_article in related_articles %}
+            <li>
+                {% if related_article.image %}
+                <img src="{{ related_article.image.url }}" alt="{{ related_article.title }}">
+                {% endif %}
+                <div>
+                    <h3>{{ related_article.title|truncatewords:8 }}</h3>
+                    <p>Published on {{ related_article.date_added|date:"F j, Y" }}</p>
+                </div>
+                <a href="{% url 'article_detail' related_article.id %}">Read More →</a>
+            </li>
+            {% empty %}
+            <p>No related articles available.</p>
+            {% endfor %}
+        </ul>
+    </section>
 </body>
 </html>
+{% endblock %}
