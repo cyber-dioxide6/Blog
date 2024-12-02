@@ -3,7 +3,10 @@ from .models import *
 # Register your models here.
 
 #Article Registration
-admin.site.register(blog)
+@admin.register(blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display=('title', 'category', 'date_added')
+    list_filter=('category',)
 
 #Review Registration
 class reviewAdmin(admin.ModelAdmin):
@@ -14,3 +17,6 @@ admin.site.register(review, reviewAdmin)
 class contact_usAdmin(admin.ModelAdmin):
     list_display_contact = ('id', 'username', 'text', 'contact_date')
 admin.site.register(contact_us, contact_usAdmin)
+
+#Images
+admin.site.register(Category)

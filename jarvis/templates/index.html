@@ -296,7 +296,7 @@
         <div class="article-content">
           <h2 class="article-title">{{rec.title|truncatewords:10}}</h2>
           <p class="article-date">Published on {{rec.date_added}}</p>
-          
+          <p class="artcile-text" style="color: white">{{rec.summary}}</p>
           <a href="{% url 'article_detail' rec.id %}" class="read-more-btn">Read More</a>
         </div>
       </div>      

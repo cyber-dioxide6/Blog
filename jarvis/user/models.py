@@ -10,18 +10,19 @@ class blog(models.Model):
     Post_type = [
         ('TECH', 'TECHNOLOGY'),
         ('HTML', 'HTML'),
-        ('CODE', 'CODING'),
+        ('Tips & Tricks', 'Tips & Tricks'),
         ('CSS', 'CSS'),
-        ('BTS', 'BOOTSTRAP'),
-        ('PYT', 'PYTHON'),
+        ('Bootstrap', 'BOOTSTRAP'),
+        ('Python', 'Python'),
         ('JAVA', 'JAVA'),
-        ('JS', 'JAVASCRIPT'),
-        ('DJF', 'DJANGO FRAMEWORK'),
+        ('JavaScript', 'JavaScript'),
+        ('Django', 'Django'),
     ]
     title = models.CharField(max_length=100)
     post = HTMLField(default='')
     image = CloudinaryField('media/image')
-    category = models.CharField(max_length=5, choices=Post_type, null=True)
+    category = models.CharField(max_length=15, choices=Post_type, null=True)
+    summary = models.TextField(null=True)
     date_added = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.title
@@ -43,3 +44,12 @@ class contact_us(models.Model):
     contact_date = models.DateField(auto_now_add=True)
     def __str__(self):
         return self.username
+
+
+#Category Images
+class Category(models.Model):
+    name = models.CharField(choices=blog.Post_type)
+    image = CloudinaryField('image', blank=True, null=True)  # Cloudinary image field
+
+    def __str__(self):
+        return self.name

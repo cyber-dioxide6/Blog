@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title_block %}{{ category }}{% endblock %}</title>
+    {% block content %}
+    </head>
+    
+    <!--CSS for Categories Detail-->
+
+    <style>
+        
+        .related-articles {
+            padding: 20px;
+            background-color: #16171d;
+        }
+
+        .related-articles h2 {
+            color: #61dafb;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .related-articles ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .related-articles li {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #1d1f27;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+        .related-articles li img {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .related-articles li h3 {
+            font-size: 1rem;
+            color: #d9d9d9;
+            margin: 0 0 5px;
+            font-weight: bold;
+        }
+
+        .related-articles li p {
+            font-size: 0.85rem;
+            color: #adb5bd;
+            margin: 0;
+        }
+
+        .related-articles li a {
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: #61dafb;
+            font-weight: bold;
+        }
+
+        .related-articles li a:hover {
+            color: #4acfac;
+        }
+
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+
+            .article-content {
+                font-size: 1rem;
+            }
+
+            .related-articles li {
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+    </style>
+
+
+<body>
+    <section class="related-articles">
+        <h2>{{ category }}</h2>
+        <ul>
+            {% for blog in blogs %}
+            <li>
+                <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                <div>
+                    <h3>{{ blog.title|truncatewords:8 }}</h3>
+                    <p>Published on {{ blog.date_added|date:"F j, Y" }}</p>
+                </div>
+                <a href="{% url 'article_detail' blog.id %}">Read More →</a>
+            </li>
+            {% empty %}
+            <h2>No articles found in this category.</h2>
+            {% endfor %}
+        </ul>
+    </section>
+    
+
+    {% endblock  %}
+</body>
+</html>

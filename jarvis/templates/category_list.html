@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+
+    {% block content %}
+    <style>
+        /* Gradient Background for the whole page */
+        body {
+            background: radial-gradient(circle, #1d1f27, #131419);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Center the content */
+        .container {
+            padding: 40px 0;
+        }
+
+        .category-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Techy Card Design */
+        .category-card {
+            width: 220px;
+            text-align: center;
+            border: 2px solid #1e1e2f;
+            border-radius: 12px;
+            padding: 20px;
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+
+        /* Card Image Styling */
+        .category-card img {
+            width: 135px;
+            height: 135px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid #3a3a5a;
+        }
+
+        /* Heading Styling for Categories */
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            color: #00ff87; /* Set neon green for category heading */
+        }
+
+        /* Link Styling for Category */
+        .category-card a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #00ff87;
+            transition: color 0.3s ease;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .category-card a:hover {
+            color: #39ff14;
+        }
+
+        /* Global Styling for all Text Elements */
+        p {
+            color: #dcdcdc;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+    </style>
+    
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>Categories</h1>
+        <div class="category-container">
+            {% for category in categories %}
+                <div class="category-card">
+                    <a href="{% url 'category_detail' category.name %}">
+                        {% if category.image %}
+                            <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/100" alt="Default Image">
+                        {% endif %}
+                        <p>{{ category.name }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

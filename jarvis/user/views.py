@@ -59,3 +59,24 @@ def article_detail(request, blog_id):
     article = get_object_or_404(blog, pk=blog_id)
     related_articles = blog.objects.filter(category=article.category).exclude(pk=article.pk)
     return render(request, 'articles_details.html', {'article': article, 'related_articles': related_articles})
+
+
+#Category List View
+#def category_list(request):
+ #   categories = blog.Post_type
+  #  return render(request,'category_list.html', {'categories': categories})
+
+# Blog by category View
+
+def category_detail(request, category):
+    blogs_in_category= blog.objects.filter(category=category).order_by('-date_added')
+    return render(request, 'category_detail.html', {'blogs': blogs_in_category, 'category': category})
+
+#Quiz Section
+def quiz(request):
+    return render(request,'quiz.html')
+
+def category_list(request):
+    categories = Category.objects.all()  # Get all categories with images
+    return render(request, 'category_list.html', {'categories': categories})
+
