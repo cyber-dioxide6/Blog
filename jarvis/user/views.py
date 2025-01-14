@@ -2,8 +2,21 @@ from email.message import Message
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import *
+from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 # Create your views here.
 def home(request):
+    #Feedback Section form handling
+    if request.method =="POST":
+        Name = request.POST.get('name')
+        Email = request.POST.get('email')
+        Feedback = request.POST.get('feedback')
+        Date = request.POST.get('date')
+        Recommend = request.POST.get('recommend')
+        review(name=Name, email=Email ,feedback=Feedback, date=Date, recommend=Recommend).save()
+        #Ends here
+        return render(request,'user_redirectfeed.html')
     rec = blog.objects.order_by('-date_added')[:9]
     recrev = review.objects.order_by('-date')[:6]
     return render(request, 'index.html', {'rec': rec, 'recrev': recrev })
@@ -31,25 +44,13 @@ def contact(request):
 def contact_sucess(request):
     return render(request,'user_redirectcont.html')
 
-#Review Section
-def review1(request):
-    if request.method =="POST":
-        Name = request.POST.get('name')
-        Email = request.POST.get('email')
-        Feedback = request.POST.get('feedback')
-        Date = request.POST.get('date')
-        review(name=Name, email=Email ,feedback=Feedback, date=Date).save()
-        return render(request,'user_redirectfeed.html')
-    rev = review.objects.all()
-        
-    return render(request,'review.html',{'rev': rev})
-
 #Review Confirmation section
 def success(request):
     return render(request,'user_redirectfeed.html')
 
 
 #Aricle Section
+@login_required
 def articles(request):
     dis = blog.objects.all()
     return render(request,'articles.html', {'dis': dis})
@@ -61,12 +62,8 @@ def article_detail(request, blog_id):
     return render(request, 'articles_details.html', {'article': article, 'related_articles': related_articles})
 
 
-#Category List View
-#def category_list(request):
- #   categories = blog.Post_type
-  #  return render(request,'category_list.html', {'categories': categories})
 
-# Blog by category View
+# Posts by category View
 
 def category_detail(request, category):
     blogs_in_category= blog.objects.filter(category=category).order_by('-date_added')
@@ -80,3 +77,18 @@ def category_list(request):
     categories = Category.objects.all()  # Get all categories with images
     return render(request, 'category_list.html', {'categories': categories})
 
+
+
+
+#Registration Section
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user.setpassword(form.cleaned_data.get['password1'])
+            form.save()
+            login
+            return HttpResponse('User registered successfully')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'registration/register.html', {'form': form})

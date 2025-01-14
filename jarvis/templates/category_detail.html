@@ -100,11 +100,15 @@
             {% for blog in blogs %}
             <li>
                 <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
-                <div>
+                <div> 
                     <h3>{{ blog.title|truncatewords:8 }}</h3>
                     <p>Published on {{ blog.date_added|date:"F j, Y" }}</p>
                 </div>
+                {% if user.is_authenticated %}
                 <a href="{% url 'article_detail' blog.id %}">Read More →</a>
+                {% else %}
+                <a href="{% url 'login' %}">Read More →</a>
+                {% endif %}
             </li>
             {% empty %}
             <h2>No articles found in this category.</h2>

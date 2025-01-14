@@ -20,40 +20,143 @@
     <!-- FontAwesome CDN Link -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+    <!-- Custom CSS -->
+    <style>
+    /* Additional CSS for centering the navigation items */
+    @media (max-width: 768px) {
+        .navbar-nav {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .navbar-nav .nav-item {
+            margin: 5px 0; /* Adds spacing between items */
+        }
+
+        .navbar-collapse {
+            text-align: center; /* Ensures text alignment in center */
+        }
+    }
+
+
+        .btn-animated {
+            position: relative;
+            overflow: hidden;
+            background: #00ccff;
+            color: black;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .btn-animated:hover {
+            color: #fff;
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            transform: scale(1.1);
+        }
+        .btn-animated::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+        .btn-animated:hover::after {
+            transform: scale(2);
+        }
+
+        @media (max-width: 768px) {
+            .nav-buttons {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+            .nav-buttons .btn-animated {
+                width: 45%;
+                margin-bottom: 10px;
+            }
+            
+        }
+    </style>
 </head>
 <body>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <img src="{% static 'images/logo.png' %}" alt="Tech Blog Logo" width="30" height="30" class="d-inline-block align-text-top">
-                TechPulse
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'articles' %}">Articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'category_list' %}">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'quiz' %}">Quiz</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                    </li>
-                </ul>
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Tech Blog Logo" width="30" height="30" class="d-inline-block align-text-top">
+            TechPulse
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
+                  <i class="fas fa-home"></i> Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'articles' %}">
+                  <i class="fas fa-book"></i> Articles
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'category_list' %}">
+                  <i class="fas fa-th-list"></i> Categories
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'quiz' %}">
+                  <i class="fas fa-question-circle"></i> Quiz
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">
+                  <i class="fas fa-envelope"></i> Contact Us
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-pencil-alt"></i> Post
+                </a>
+              </li>
+            </ul>
+            <div class="nav-buttons d-lg-flex ms-lg-3">
+              {% if request.user.is_authenticated %}
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-animated w-100 ">
+                  <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+              </form>
+              {% else %}
+              <a href="{% url 'login' %}" class="btn btn-animated me-lg-2">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </a>
+              <a href="{% url 'register' %}" class="btn btn-animated">
+                <i class="fas fa-user-plus"></i> Sign Up
+              </a>
+              {% endif %}
             </div>
+          </div>
         </div>
-    </nav>
+      </nav>
 
     {% block content %}
     
@@ -61,62 +164,58 @@
 
     <!-- Footer Section -->
     <footer class="bg-dark text-white pt-5 pb-4">
-      <div class="container text-center text-md-left">
-        <div class="row text-center text-md-left">
-          <!-- Logo & Description -->
-          <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
-            <h5 class="text-uppercase mb-4 font-weight-bold">TechPulse</h5>
-            <p>
-              Stay updated with the latest trends, news, and tutorials in the world of technology. We provide high-quality content to keep you informed and ahead of the curve.
-            </p>
-          </div>
-    
-          <!-- Social Media Links -->
-          <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
-            <h5 class="text-uppercase mb-4 font-weight-bold">Follow Us</h5>
-            <p>
-              <a href="https://www.facebook.com/Mrshizuu0235" class="text-white" style="text-decoration: none;">
-                <i class="fab fa-facebook-f"></i> Facebook
-              </a>
-            </p>
-            <p>
-              <a href="https://github.com/cyber-dioxide6" class="text-white" style="text-decoration: none;">
-                <i class="fab fa-github"></i> Github
-              </a>
-            </p>
-            <p>
-              <a href="https://www.instagram.com/useless_guy4u/" class="text-white" style="text-decoration: none;">
-                <i class="fab fa-instagram"></i> Instagram
-              </a>
-            </p>
-            <p>
-              <a href="https://www.linkedin.com/in/mohd-yasir-iqbal-siddiqui-364914234/" class="text-white" style="text-decoration: none;">
-                <i class="fab fa-linkedin"></i> LinkedIn
-              </a>
-            </p>
-          </div>
-    
-          <!-- Contact Information -->
-          <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
-            <h5 class="text-uppercase mb-4 font-weight-bold">Contact</h5>
-              <i class="fas fa-envelope mr-3"></i> shizaansiddiqui@outlook.com
-            </p>
-          </div>
-          
-        </div>
-    
-        <!-- Footer Bottom -->
-        <div class="row mt-3">
-          <div class="col-md-12 text-center">
-            <p>&copy; 2024 TechPulse. All Rights Reserved.</p>
-          </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-12 text-center">
-              <p> <a href="https://sizan.pythonanywhere.com/">Developed By: Mohd Yasir Iqbal Siddiqui</p></a>
+        <div class="container text-center text-md-left">
+            <div class="row text-center text-md-left">
+                <!-- Logo & Description -->
+                <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">TechPulse</h5>
+                    <p>
+                        Stay updated with the latest trends, news, and tutorials in the world of technology. We provide high-quality content to keep you informed and ahead of the curve.
+                    </p>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Follow Us</h5>
+                    <p>
+                        <a href="https://www.facebook.com/Mrshizuu0235" class="text-white" style="text-decoration: none;">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </a>
+                    </p>
+                    <p>
+                        <a href="https://github.com/cyber-dioxide6" class="text-white" style="text-decoration: none;">
+                            <i class="fab fa-github"></i> Github
+                        </a>
+                    </p>
+                    <p>
+                        <a href="https://www.instagram.com/useless_guy4u/" class="text-white" style="text-decoration: none;">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                    </p>
+                    <p>
+                        <a href="https://www.linkedin.com/in/mohd-yasir-iqbal-siddiqui-364914234/" class="text-white" style="text-decoration: none;">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                    </p>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Contact</h5>
+                    <i class="fas fa-envelope mr-3"></i> shizaansiddiqui@outlook.com
+                </div>
             </div>
-          </div>
-      </div>
+
+            <!-- Footer Bottom -->
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    <p>&copy; 2024 TechPulse. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-12 text-center">
+                    <p><a href="https://sizan.pythonanywhere.com/">Developed By: Mohd Yasir Iqbal Siddiqui</a></p>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <!-- Bootstrap JS and Popper.js -->

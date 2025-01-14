@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from django.utils import timezone
 from cloudinary.models import CloudinaryField
@@ -28,10 +29,15 @@ class blog(models.Model):
         return self.title
 # Review Section
 class review(models.Model):
+    recommendation = [
+        ('YES', 'YES'),
+        ('NO', 'NO'),
+    ]
     name = models.CharField(max_length=50, null=True)
     email = models.EmailField(max_length=50, null=True)
     feedback = models.TextField(null=True)
     date = models.DateField(auto_now_add=True)
+    recommend = models.CharField(max_length=3, choices=recommendation, null=True)
     def __str__(self):
         return self.name
 

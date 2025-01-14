@@ -10,7 +10,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 #Review Registration
 class reviewAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'email', 'feedback', 'date')
+    list_display = ('id','name', 'email', 'feedback', 'date','recommend')
 admin.site.register(review, reviewAdmin)
 
 # Contact Registration

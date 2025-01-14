@@ -163,3 +163,9 @@ cloudinary.config(
 
 #MEDIA_URL = '/media/'  # or any prefix you choose
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+#Login URL
+LOGIN_URL = '/accounts/login'
+# Redirect to home page after login
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
