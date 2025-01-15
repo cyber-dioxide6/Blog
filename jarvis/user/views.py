@@ -1,8 +1,8 @@
 from email.message import Message
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import *
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, postform
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 # Create your views here.
@@ -52,7 +52,7 @@ def success(request):
 #Aricle Section
 @login_required
 def articles(request):
-    dis = blog.objects.all()
+    dis = blog.objects.order_by('-date_added')
     return render(request,'articles.html', {'dis': dis})
 
 # Read More Section
@@ -92,3 +92,17 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'registration/register.html', {'form': form})
+
+#Upload Post Section
+@login_required
+def upload_post(request):
+    if request.method == 'POST':
+        form = postform(request.POST, request.FILES)
+        if form.is_valid():
+            post =form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect('articles')
+    else:
+        form = postform()
+    return render(request, 'upload_post.html', {'form': form})

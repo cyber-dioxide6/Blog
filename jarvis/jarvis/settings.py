@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'user',
     'tinymce',
     'cloudinary',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

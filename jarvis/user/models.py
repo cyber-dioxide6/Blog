@@ -8,6 +8,7 @@ from cloudinary.models import CloudinaryField
 
 #Articles Section
 class blog(models.Model):
+    user= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     Post_type = [
         ('TECH', 'TECHNOLOGY'),
         ('HTML', 'HTML'),
