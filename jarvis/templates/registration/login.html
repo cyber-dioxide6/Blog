@@ -60,6 +60,12 @@
     a.text-primary:hover {
         color: #0056b3;
     }
+
+    .error-message {
+        color: #ff3333; /* Red color for error messages */
+        font-size: 0.9rem;
+        margin-top: 10px;
+    }
 </style>
 </head>
 <title> {% block title_block %} Login {% endblock %} </title>
@@ -83,6 +89,14 @@
                                 required>
                         </div>
                         {% endfor %}
+                        <!-- Show error message if there is a non-field error (e.g., wrong credentials) -->
+                        {% if form.non_field_errors %}
+                            <div class="error-message">
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>

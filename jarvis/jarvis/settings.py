@@ -29,7 +29,7 @@ TEMPLATE_DIR = BASE_DIR/'templates'
 SECRET_KEY = 'django-insecure-f-3$5ki_p@pf70hz8$3+5fps)&df$4t!y_@3=y_59ze*=7+p=2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
