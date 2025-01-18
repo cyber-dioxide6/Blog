@@ -80,18 +80,21 @@ def category_list(request):
 
 
 
-#Registration Section
+# Registration Section
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            user.setpassword(form.cleaned_data.get['password1'])
-            form.save()
-            login
-            return HttpResponse('User registered successfully')
+            user = form.save(commit=False)  # Do not commit yet, as we need to set the password
+            user.set_password(form.cleaned_data.get('password1'))  # Correct method and usage of get
+            user.save()  # Save the user after setting the password
+            login(request, user)  # Log in the user after registration
+            return redirect('articles')  # Redirect to the articles page
     else:
         form = UserRegisterForm()
+    
     return render(request, 'registration/register.html', {'form': form})
+
 
 #Upload Post Section
 @login_required
