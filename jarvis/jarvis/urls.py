@@ -25,7 +25,3 @@ urlpatterns = [
     path('', include('user.urls'), name='user'),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
-
-# Append static URLs only if DEBUG is True
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
