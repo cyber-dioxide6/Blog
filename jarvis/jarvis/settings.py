@@ -29,7 +29,7 @@ TEMPLATE_DIR = BASE_DIR/'templates'
 SECRET_KEY = 'django-insecure-f-3$5ki_p@pf70hz8$3+5fps)&df$4t!y_@3=y_59ze*=7+p=2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -135,10 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Adjust if your static files directory is different
-]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_DIR = BASE_DIR/'static'
+STATICFILES_DIRS = [STATIC_DIR]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
