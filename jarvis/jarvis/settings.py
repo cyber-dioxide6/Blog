@@ -88,9 +88,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'defaultdb',
         'USER': 'avnadmin',
-        'PASSWORD': 'AVNS_kC--ny221yNqKLynBcL',
-        'HOST': 'shzian-timypet0235-963c.b.aivencloud.com',
-        'PORT': '21817',
+        'PASSWORD': 'AVNS_bHPZhC8F3JanQomPKZU',
+        'HOST': 'pg-1783c8c9-codeme.l.aivencloud.com',
+        'PORT': '24073',
     }
 }
 #DATABASES = {
