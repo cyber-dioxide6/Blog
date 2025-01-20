@@ -145,6 +145,13 @@
                   <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
               </form>
+              <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'view_profile' %}">
+                  <img src=" {{user.userprofile.profile_picture.url}} " alt="Profile" class="rounded-circle" style="width: 40px; height: 40px;">
+                </a>
+              </li>
+            </ul>
               {% else %}
               <a href="{% url 'login' %}" class="btn btn-animated me-lg-2">
                 <i class="fas fa-sign-in-alt"></i> Login

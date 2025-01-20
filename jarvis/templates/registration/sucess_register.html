@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Successful</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .btn-primary {
+            background-color: #00c6ff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0072ff;
+        }
+
+        .heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .subheading {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .email-verification-link {
+            text-decoration: none;
+            color: #00c6ff;
+            font-weight: 600;
+        }
+
+        .email-verification-link:hover {
+            color: #0072ff;
+        }
+
+        .footer {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h1 class="heading">Registration Successful!</h1>
+            <p class="subheading">Thank you for signing up, <strong>{{ user.username }}</strong>!</p>
+            <p class="lead">To continue using your account, please verify your email address by clicking the link we sent to your inbox.</p>
+            <p>please check your spam folder if you don't see the email in your inbox.</p>
+            
+            <div class="mt-4">
+                <a href="{% url 'login' %}n" class="btn btn-primary">Go to Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -13,6 +13,9 @@ urlpatterns = [
     path('categories/', views.category_list, name='category_list'),  # List all categories
     path('categories/<str:category>/', views.category_detail, name='category_detail'),  # Filter by category
     path('quiz', views.quiz, name='quiz'),
-    path('register/', views.register, name='register'),#Registration
     path('upload_post/', views.upload_post, name='upload_post'),#Upload Post
+    path('register/', views.register, name='register'),#Register
+    path('activate/<uidb64>/<token>/', views.activate, name='activate'),#Activate
+    path('edit_profile/', views.edit_profile, name='edit_profile'),#Edit Profile
+    path('profile/', views.view_profile, name='view_profile'),#View Profile
 ]

@@ -2,7 +2,15 @@ from email.message import Message
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import *
-from .forms import UserRegisterForm, postform
+from .forms import postform, UserRegistrationForm, ProfileEditForm
+from django.core.mail import send_mail
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.contrib.auth.tokens import default_token_generator as token_generator
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 # Create your views here.
@@ -78,22 +86,49 @@ def category_list(request):
     return render(request, 'category_list.html', {'categories': categories})
 
 
-
-
-# Registration Section
+#Register Section
 def register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # Do not commit yet, as we need to set the password
-            user.set_password(form.cleaned_data.get('password1'))  # Correct method and usage of get
-            user.save()  # Save the user after setting the password
-            login(request, user)  # Log in the user after registration
-            return redirect('articles')  # Redirect to the articles page
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.is_active = False  # Make sure the user is not active until email is verified
+            user.save()
+
+            # Send verification email
+            token = token_generator.make_token(user)
+            uid = urlsafe_base64_encode(str(user.pk).encode('utf-8')) 
+            domain = get_current_site(request).domain
+            link = f'http://{domain}/activate/{uid}/{token}/'
+
+            subject = "Activate your account"
+            message = f"Hi {user.username}!! Click the following link to activate your account: {link}"
+            send_mail(subject, message, 'no-reply@yourdomain.com', [user.email])
+
+            return render(request,'registration/sucess_register.html')  # Or redirect to a confirmation page
+
     else:
-        form = UserRegisterForm()
-    
+        form = UserRegistrationForm()
+
     return render(request, 'registration/register.html', {'form': form})
+
+
+#Account Activation Section
+def activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode('utf-8')
+        user = User.objects.get(pk=uid)
+
+        if token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            return redirect('login')
+        else:
+            return HttpResponse("Invalid link")
+
+    except Exception as e:
+        return HttpResponse("Error: " + str(e))
 
 
 #Upload Post Section
@@ -109,3 +144,29 @@ def upload_post(request):
     else:
         form = postform()
     return render(request, 'upload_post.html', {'form': form})
+
+#View Profile
+@login_required
+def view_profile(request):
+    return render(request, 'view_profile.html', {'user': request.user})
+
+#Edit Profile
+@login_required
+def edit_profile(request):
+    # Ensure UserProfile exists
+    try:
+        profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        profile = UserProfile.objects.create(user=request.user)
+
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('edit_profile')
+    else:
+        form = ProfileEditForm(instance=profile)
+
+    return render(request, 'edit_profile.html', {'form': form})
+
+

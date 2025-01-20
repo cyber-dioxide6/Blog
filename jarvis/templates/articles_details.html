@@ -172,7 +172,7 @@
         {% if article.image %}
         <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
         {% endif %}
-        <p class="article-meta">Published by: {{article.user}} on {{ article.date_added|date:"F j, Y" }}</p>
+        <p class="article-meta">Published by: {{user.username}} on {{ article.date_added|date:"F j, Y" }}</p>
         <div class="article-content">
             {{ article.post|safe }}
         </div>
@@ -187,7 +187,7 @@
                 {% endif %}
                 <div>
                     <h3>{{ related_article.title|truncatewords:8 }}</h3>
-                    <p>Published by {{related_article.user}} on {{ related_article.date_added|date:"F j, Y" }}</p>
+                    <p>Published by:- {{user.username}} on {{ related_article.date_added|date:"F j, Y" }}</p>
                 </div>
                 <a href="{% url 'article_detail' related_article.id %}">Read More →</a>
             </li>

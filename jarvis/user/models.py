@@ -3,12 +3,13 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from django.utils import timezone
 from cloudinary.models import CloudinaryField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 
 
 #Articles Section
 class blog(models.Model):
-    user= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     Post_type = [
         ('TECH', 'TECHNOLOGY'),
         ('HTML', 'HTML'),
@@ -60,3 +61,22 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+#User Profile Model
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True, null=True)
+    profile_picture = CloudinaryField('media/image')
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+    
+
+# Signal to create or update UserProfile
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+    else:
+        instance.userprofile.save()
